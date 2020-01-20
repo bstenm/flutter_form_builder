@@ -44,6 +44,7 @@ class FormBuilderTextField extends StatefulWidget {
   final int minLines;
   final bool showCursor;
   final FormFieldSetter onSaved;
+  final Function onError;
 
   FormBuilderTextField({
     Key key,
@@ -85,6 +86,7 @@ class FormBuilderTextField extends StatefulWidget {
     this.minLines,
     this.showCursor,
     this.onSaved,
+    this.onError,
   }) : super(key: key);
 
   @override
@@ -125,8 +127,10 @@ class FormBuilderTextFieldState extends State<FormBuilderTextField> {
       key: _fieldKey,
       validator: (val) {
         for (int i = 0; i < widget.validators.length; i++) {
-          if (widget.validators[i](val) != null)
+          if (widget.validators[i](val) != null) {
+            widget.onError();
             return widget.validators[i](val);
+          }
         }
         return null;
       },
