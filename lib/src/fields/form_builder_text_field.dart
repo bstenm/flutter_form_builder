@@ -128,7 +128,7 @@ class FormBuilderTextFieldState extends State<FormBuilderTextField> {
       validator: (val) {
         for (int i = 0; i < widget.validators.length; i++) {
           if (widget.validators[i](val) != null) {
-            if (widget.onError) {
+            if (widget.onError != null) {
               widget.onError();
             }
             return widget.validators[i](val);
